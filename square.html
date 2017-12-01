@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script>
+      let canvas = document.querySelector('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.backgroundColor = "#1C1F33"
+      let c = canvas.getContext('2d')
+
+      let mouse = {
+        x: undefined,
+        y: undefined
+      }
+
+      document.addEventListener('mousemove', function(event) {
+        mouse.x = event.x;
+        mouse.y = event.y;
+        console.log(mouse);
+      })
+
+      const leftX = window.innerWidth/2 - 150
+      const rightX = window.innerWidth/2 + 150
+      const topY = window.innerHeight/2 - 150
+      const bottomY = window.innerHeight/2 + 150
+
+      const innerleftX = window.innerWidth/2 - 100
+      const innerrightX = window.innerWidth/2 + 100
+      const innertopY = window.innerHeight/2 - 100
+      const innerbottomY = window.innerHeight/2 + 100
+
+
+      function animate() {
+        requestAnimationFrame(animate);
+        c.clearRect(0, 0, window.innerWidth, window.innerHeight)
+
+        //make the cube
+        c.beginPath();
+        c.moveTo(leftX, topY);
+        c.lineTo(rightX, topY);
+        c.lineTo(rightX, bottomY);
+        c.lineTo(leftX, bottomY);
+        c.lineTo(leftX, topY);
+        c.fillStyle = 'rgba(102, 99, 112, 0.5)';
+        c.fill();
+
+        //left lines
+        for(let i = topY; i < bottomY; i+= 5) {
+          c.beginPath();
+          c.moveTo(leftX, i);
+          c.lineTo(mouse.x, mouse.y);
+          c.strokeStyle = 'rgba(211, 62, 67, 0.7)'
+          c.stroke();
+        }
+
+        //right lines
+        for(let i = topY; i < bottomY; i+= 5) {
+          c.beginPath();
+          c.moveTo(rightX, i);
+          c.lineTo(mouse.x, mouse.y);
+          c.strokeStyle = 'rgba(211, 62, 67, 0.7)'
+          c.stroke();
+        }
+
+        //top lines
+        for(let i = leftX; i < rightX; i+= 5) {
+          c.beginPath();
+          c.moveTo(i, topY);
+          c.lineTo(mouse.x, mouse.y);
+          // c.strokeStyle = 'rgba(102, 99, 112, 0.7)'
+          c.strokeStyle = 'rgba(211, 62, 67, 0.7)'
+          c.stroke();
+        }
+
+        //bottom lines
+        for(let i = leftX; i < rightX; i+= 5) {
+          c.beginPath();
+          c.moveTo(i, bottomY);
+          c.lineTo(mouse.x, mouse.y);
+          // c.strokeStyle = 'rgba(102, 99, 112, 0.7)'
+          c.strokeStyle = 'rgba(211, 62, 67, 0.7)'
+          c.stroke();
+        }
+
+        //inner cube
+
+        //left lines
+        for(let i = innertopY; i < innerbottomY; i+= 5) {
+          c.beginPath();
+          c.moveTo(innerleftX, i);
+          c.lineTo(mouse.x, mouse.y);
+          c.strokeStyle = 'rgba(102, 99, 112, 0.7)'
+          c.stroke();
+        }
+
+        //right lines
+        for(let i = innertopY; i < innerbottomY; i+= 5) {
+          c.beginPath();
+          c.moveTo(innerrightX, i);
+          c.lineTo(mouse.x, mouse.y);
+          c.strokeStyle = 'rgba(102, 99, 112, 0.7)'
+          c.stroke();
+        }
+
+        //top lines
+        for(let i = innerleftX; i < innerrightX; i+= 5) {
+          c.beginPath();
+          c.moveTo(i, innertopY);
+          c.lineTo(mouse.x, mouse.y);
+          c.strokeStyle = 'rgba(102, 99, 112, 0.7)'
+          c.stroke();
+        }
+
+        //bottom lines
+        for(let i = innerleftX; i < innerrightX; i+= 5) {
+          c.beginPath();
+          c.moveTo(i, innerbottomY);
+          c.lineTo(mouse.x, mouse.y);
+          c.strokeStyle = 'rgba(102, 99, 112, 0.7)'
+          c.stroke();
+        }
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
