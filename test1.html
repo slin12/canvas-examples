@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Canvas Practice</title>
+  </head>
+  <body>
+    <canvas id="window-canvas" width="300" height="300"></canvas>
+
+    <script>
+      let canvas = document.querySelector("canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let c = canvas.getContext('2d');
+
+      for (let i = 0; i < 200; i++) {
+        c.beginPath();
+        let x = Math.random() * window.innerWidth;
+        let y = Math.random() * window.innerHeight;
+        let radius = Math.random() * 100;
+        let r = Math.floor(Math.random() * 255);
+        let g = Math.floor(Math.random() * 255);
+        let b = Math.floor(Math.random() * 255);
+        c.strokeStyle = `rgba(${r}, ${g}, ${b}, ${Math.random()})`
+        c.fillStyle = `rgba(${r}, ${g}, ${b}, ${Math.random()})`
+        c.arc(x, y, radius, 0, Math.PI * 2, true)
+        if (i%2 == 0) {
+          c.stroke();
+        } else {
+          c.fill();
+        }
+
+      }
+
+    </script>
+  </body>
+</html>
